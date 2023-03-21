@@ -4,6 +4,7 @@ using UnityEngine;
 
 
 //used https://github.com/etredal/Chess_App to learn, took about 4 hours including debugging
+//yooo
 
 public class Chessman : MonoBehaviour
 {
