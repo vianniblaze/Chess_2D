@@ -246,7 +246,7 @@ public class Chessman : MonoBehaviour
          }
     }
 
-    public void PawnMovePlate(int x, int y)
+    public void PawnMovePlate(int x, int y) // code in en passant https://stackoverflow.com/questions/24686803/need-help-implementing-en-passant-pawn-capture-and-promotion
     {
         Game sc = controller.GetComponent<Game>();
         if(sc.PositionOnBoard(x,y))
@@ -254,6 +254,19 @@ public class Chessman : MonoBehaviour
             if(sc.GetPosition(x,y) == null)
             {
                 MovePlateSpawn(x,y);
+                
+            }
+
+             if(sc.GetPosition(x,y) == null && yBoard==1 && this.name=="white_pawn") //white pawn first move
+            {
+                MovePlateSpawn(x,y+1);
+                
+            }
+
+             if(sc.GetPosition(x,y) == null && yBoard==6 && this.name=="black_pawn")//black pawn first move
+            {
+                MovePlateSpawn(x,y-1);
+                
             }
         }
 
@@ -266,6 +279,8 @@ public class Chessman : MonoBehaviour
         {
             MovePlateAttackSpawn(x - 1,y);
         }
+
+
     }
 
     public void MovePlateSpawn(int matrixX,int matrixY)
@@ -311,6 +326,30 @@ public class Chessman : MonoBehaviour
         
 
 
+    }
+        //youtube comments
+      void Update()
+    {//to promote pawn to queen
+        switch (this.name){
+            case "black_pawn": 
+                if (yBoard == 0 ){
+
+                GameObject cp = controller.GetComponent<Game>().GetPosition(xBoard, yBoard);
+                cp.name = "black_queen";
+                this.GetComponent<SpriteRenderer>().sprite = black_queen; player = "black";
+
+                }
+                break;
+
+            case "white_pawn" :
+                if (yBoard == 7 ){
+                GameObject cp = controller.GetComponent<Game>().GetPosition(xBoard, yBoard);
+                cp.name = "white_queen";
+                this.GetComponent<SpriteRenderer>().sprite = white_queen; player = "white";
+                
+                }
+                break;
+        }
     }
 }
 
